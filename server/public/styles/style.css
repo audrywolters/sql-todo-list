@@ -1,16 +1,16 @@
 body {
     font: 15px Avenir, Futura, sans-serif;
+    background-color: pink;
     margin: 3em;
-    padding: 0;
 }
 
 table {
     border-collapse: collapse;
-    /* width: 50%; */
+
 }
 
 .taskCell {
-    min-width: 25em;
+    min-width: 15em;
 }
 
 td, th {
@@ -21,7 +21,29 @@ tr {
   border: 1px solid #ddd;
 }
 
+input[type="text"] {
+    margin-bottom: 2em;
+    padding: 1em;
+    width: 22em;
+}
+
+button {
+    background-color: transparent;
+    border: none;
+}
+
 .completeTodoCheckbox {  
     height: 1.5em;
     width: 1.5em;
+}
+
+#addTodoButton {
+    font-size: 2em;
+    color: #444;
+    text-align: center;
+}
+
+.deleteTodoButton {
+    color: white;
+    font-weight: bolder;
 }

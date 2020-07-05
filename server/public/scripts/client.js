@@ -45,11 +45,11 @@ function displayTodos( response ) {
         tableBody.append( 
             `<tr>
                 <td>
-                    <button class="deleteTodoButton" data-id=${ row.id }>x</button>
+                    <button class="deleteTodoButton" data-id=${ row.id } title="Delete Task">X</button>
                 </td>
                 <td class="taskCell">${ row.task }</td>
                 <td>
-                    <input class="completeTodoCheckbox" data-id="${ row.id }" id="${ row.id }" type="checkbox" />
+                    <input class="completeTodoCheckbox" data-id="${ row.id }" id="${ row.id }" title="Done-zo!" type="checkbox" />
                 </td>
             </tr>`
         )
@@ -70,9 +70,11 @@ function dimCompletedTodos( checkbox ) {
 
     // let's help the user see what they've completed
     if ( checkbox.is( ':checked' ) ) {
-        row.css( 'background-color', 'orange' );
+        row.css( 'background-color', 'lightgray' );
+        row.css( 'color', 'gray' );
     } else {
-        row.css( 'background-color', 'gray' );
+        row.css( 'background-color', '#5ecab6' );
+        row.css( 'color', '#444' );
     }
 } // dimCompletedTodos END
 
