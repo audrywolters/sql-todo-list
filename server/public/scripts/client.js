@@ -5,7 +5,7 @@ function onReady() {
     $( '#addTodoButton' ).on( 'click', addTodo );
     $( '#todosDisplay' ).on( 'click', '.deleteTodoButton', deleteTodo );
 
-    // update will be complete and delete click events
+    // need 'completed' event
 
     // and always get all items
     getTodos();
@@ -33,7 +33,7 @@ function getTodos() {
                     <td>${ row.task }</td>
                     <td>${ row.completed }</td>
                     <td>
-                        <button class="deleteTodoButton">x</button>
+                        <button class="deleteTodoButton" data-id=${ row.id }>x</button>
                     </td>
                  </tr>`
             )    
@@ -52,6 +52,9 @@ function addTodo() {
         // don't worry about sending it
     }
 
+    // make input blank so user can start anew
+    $( '#taskIn' ).val( '' );
+
     // send it to server so it can talk to DB about it
     $.ajax({
         type: 'POST',
@@ -62,9 +65,18 @@ function addTodo() {
     }).catch( function( err ) {
         console.log( 'add failure!!! '  + err );
     })
-}s
+}
 
 // delete
 function deleteTodo() {
-    console.log( 'delete!' );
+
+    $.ajax({
+        type: "DELETE",
+        url: '/todos/' + $( this ).data( 'id' )
+    }).then( function( response ) {
+        getTodos();
+    }).catch( function( err ) {
+        console.log( 'delete failure!!! '  + err );
+    })
+    
 }
