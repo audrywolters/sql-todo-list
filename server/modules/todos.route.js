@@ -15,5 +15,23 @@ router.get( '/', ( req, res ) => {
     })
 })
 
+// save a new todo
+router.post( '/', ( req, res ) => {
+    console.log('hi');
+
+    // a new task's completed state will always be false 
+    // (column default)
+    let insertQuery = `INSERT INTO "todos" ( "task" ) VALUES ( $1 )`;
+
+    pool.query( insertQuery, [ req.body.task ] )
+    .then( ( result ) => {
+        res.sendStatus( 201 );
+    }).catch( ( err ) => {
+        console.log( '>:| ' + err );
+        res.sendStatus( 500 );
+    })
+})
+
+
 // send out our guy
 module.exports = router;

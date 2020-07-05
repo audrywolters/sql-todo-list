@@ -5,6 +5,8 @@ function onReady() {
     $( '#addTodoButton' ).on( 'click', addTodo );
     $( '#todosDisplay' ).on( 'click', '.deleteTodoButton', deleteTodo );
 
+    // update will be complete and delete click events
+
     // and always get all items
     getTodos();
 }
@@ -43,8 +45,24 @@ function getTodos() {
 
 // insert
 function addTodo() {
-    console.log( 'add todo!');
-}
+    // prepare the input as an object DB will understand
+    const todoToSend = {
+        task: $( '#taskIn' ).val()
+        // a new task has the default state of NOT completed
+        // don't worry about sending it
+    }
+
+    // send it to server so it can talk to DB about it
+    $.ajax({
+        type: 'POST',
+        url: '/todos',
+        data: todoToSend
+    }).then( function( response ) {
+        getTodos();
+    }).catch( function( err ) {
+        console.log( 'add failure!!! '  + err );
+    })
+}s
 
 // delete
 function deleteTodo() {
