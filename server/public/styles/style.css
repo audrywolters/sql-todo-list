@@ -1,5 +1,8 @@
-.completeTodoCheckbox:checked {
-    background-color: pink;  
+.completeTodoCheckbox {  
     height: 40px;
     width: 40px;
 }
+
+/* .completeTodoCheckbox:checked {
+    color: pink;
+} */

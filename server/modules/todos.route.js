@@ -15,6 +15,7 @@ router.get( '/', ( req, res ) => {
     })
 }) // GET end
 
+
 // save a new todo
 router.post( '/', ( req, res ) => {
     // we only need the 'task' data
@@ -29,6 +30,7 @@ router.post( '/', ( req, res ) => {
     })
 }) // INSERT end
 
+
 // slice and dice
 router.delete( '/:id', ( req, res ) => {
 
@@ -42,6 +44,7 @@ router.delete( '/:id', ( req, res ) => {
     })
 }) // DELETE end
 
+
 // complete/uncomplete the todo
 router.put( '/:id', ( req, res ) => {
 
@@ -54,6 +57,7 @@ router.put( '/:id', ( req, res ) => {
         res.sendStatus( 500 );
     }) // UPDATE end
 })
+
 
 // tie a ribbon on it
 module.exports = router;
