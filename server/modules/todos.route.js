@@ -3,9 +3,16 @@ const express = require( 'express' );
 const router = express.Router();
 const pool = require( './pool' );
 
-// get our todos
+// get the todos
 router.get( '/', ( req, res ) => {
-    console.log( 'Hey we got GET' );
+
+    let getQuery = `SELECT * FROM "todos"`;
+    pool.query( getQuery ).then( ( result ) => {
+        res.send( result.rows );
+    }).catch( ( err ) => {
+        console.log( 'select fail :,( ' + err );
+        res.send( 500 );
+    })
 })
 
 // send out our guy
