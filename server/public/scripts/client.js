@@ -1,6 +1,3 @@
-// AUDRY - fun stuff to try
-// - confirm delete
-
 
 $( document ).ready( onReady );
 
@@ -110,6 +107,11 @@ function addTodo() {
 
 // remove
 function deleteTodo() {
+
+    let deleteDecision = confirm( 'You sure you want to delete this guy?' );
+    if ( !deleteDecision ) {
+        return;
+    }
 
     $.ajax({
         type: 'DELETE',
