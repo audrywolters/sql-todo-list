@@ -23,26 +23,24 @@ function getTodos() {
         tableBody.empty();
 
         // and reprint each eachtime
-        // AUDRY - how the f are we going to check a checkbox by bool value?
+        for (let i=0; i<response.length; i++) {
 
-        // $('#isAgeSelected').click(function() {
-        //     $("#txtAge").toggle(this.checked);
-        // });
-
-        // Dev has 'data-index' for update........
-        for ( let row of response ) {
-
+            let row = response[i];
+            
             tableBody.append( 
                 `<tr>
                     <td>${ row.task }</td>
                     <td>
-                        <input class="completeTodoCheckbox" data-id=${ row.id } type="checkbox" />
+                        <input class="completeTodoCheckbox" data-id="${ row.id }" id="${ row.id }" type="checkbox" />
                     </td>
                     <td>
                         <button class="deleteTodoButton" data-id=${ row.id }>x</button>
                     </td>
                  </tr>`
-            )    
+            )
+
+            // set the current checkbox based on its 'completed' status
+            $( `#${ row.id }.completeTodoCheckbox` ).prop( 'checked', row.completed );
         }
     }).catch( function( err ) {
         console.log( 'GET failed: ' + err );
@@ -52,10 +50,10 @@ function getTodos() {
 // insert
 function addTodo() {
     // prepare the input as an object DB will understand
+    // a new task has the default state of NOT completed
+    // don't worry about sending it
     const todoToSend = {
         task: $( '#taskIn' ).val()
-        // a new task has the default state of NOT completed
-        // don't worry about sending it
     }
 
     // make input blank so user can start anew
@@ -73,7 +71,7 @@ function addTodo() {
     })
 }
 
-// delete
+// remove
 function deleteTodo() {
 
     $.ajax({
@@ -84,29 +82,22 @@ function deleteTodo() {
     }).catch( function( err ) {
         console.log( 'delete failure!!! '  + err );
     })
-    
 }
-
 
 // complete/un
 function completeTodo() {
     // prepare the input as an object DB will understand
     const todoToSend = {
-        completed: $( '#')
+        completed: this.checked
     }
-    // 
-    // $('#isAgeSelected').click(function() {
-    //     $("#txtAge").toggle(this.checked);
-    // });
-
 
     $.ajax({
         type: 'PUT',
-        url: '/todos/' + $( this ).data( 'id' )
+        url: '/todos/' + $( this ).data( 'id' ),
+        data: todoToSend
     }).then( function( response ) {
         getTodos();
     }).catch( function( err ) {
         console.log( 'update failure!!! '  + err );
     })
-    
 }

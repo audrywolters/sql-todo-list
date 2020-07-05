@@ -6,7 +6,7 @@ const pool = require( './pool' );
 // get the todos
 router.get( '/', ( req, res ) => {
 
-    let getQuery = `SELECT * FROM "todos"`;
+    const getQuery = `SELECT * FROM "todos" ORDER BY "id" ASC;`;
     pool.query( getQuery ).then( ( result ) => {
         res.send( result.rows );
     }).catch( ( err ) => {
@@ -19,8 +19,7 @@ router.get( '/', ( req, res ) => {
 router.post( '/', ( req, res ) => {
     // we only need the 'task' data
     // 'completed' will be sql-auto-false-column-default
-    let insertQuery = `INSERT INTO "todos" ( "task" ) VALUES ( $1 )`;
-
+    const insertQuery = `INSERT INTO "todos" ( "task" ) VALUES ( $1 )`;
     pool.query( insertQuery, [ req.body.task ] )
     .then( ( result ) => {
         res.sendStatus( 201 );
@@ -32,9 +31,8 @@ router.post( '/', ( req, res ) => {
 
 // slice and dice
 router.delete( '/:id', ( req, res ) => {
-    console.log( '/birds DELETE hit:', req.params.id );
 
-    let deleteQuery = `DELETE FROM "todos" WHERE "id"=${ req.params.id };`;
+    const deleteQuery = `DELETE FROM "todos" WHERE "id"=${ req.params.id };`;
     pool.query( deleteQuery )
     .then( ( results ) => {
         res.send( 200 );
@@ -46,9 +44,8 @@ router.delete( '/:id', ( req, res ) => {
 
 // complete/uncomplete the todo
 router.put( '/:id', ( req, res ) => {
-    console.log ('its update time');
 
-    const updateQuery = `UDPATE "todos" SET "completed"=${ req.body.completed } WHERE "id"=${ req.params.id };`;
+    const updateQuery = `UPDATE "todos" SET "completed"=${ req.body.completed } WHERE "id"=${ req.params.id };`;
     pool.query( updateQuery )
     .then( ( results ) => {
         res.sendStatus( 200 );
@@ -58,5 +55,5 @@ router.put( '/:id', ( req, res ) => {
     }) // UPDATE end
 })
 
-// send out our guy
+// tie a ribbon on it
 module.exports = router;
