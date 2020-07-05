@@ -8,16 +8,16 @@ table {
     border-collapse: collapse;
 }
 
-.taskCell {
-    min-width: 15em;
-}
-
 td, th {
     padding: 8px;
 }
 
 tr {
   border: 1px solid #ddd;
+}
+
+.taskCell {
+    min-width: 15em;
 }
 
 input[type="text"] {
@@ -38,8 +38,11 @@ button {
 
 #addTodoButton {
     font-size: 2em;
-    color: #444;
     text-align: center;
+}
+
+button:disabled {
+  color: #cc9595;
 }
 
 .deleteTodoButton {

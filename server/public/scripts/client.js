@@ -1,6 +1,4 @@
 // AUDRY - fun stuff to try
-// - move completed tasks to bottom
-// - don't allow user to add empty task
 // - confirm delete
 
 
@@ -11,6 +9,12 @@ function onReady() {
     $( '#addTodoButton' ).on( 'click', addTodo );
     $( '#todosDisplay' ).on( 'click', '.deleteTodoButton', deleteTodo );
     $( '#todosDisplay' ).on( 'click', '.completeTodoCheckbox', completeTodo );
+
+    // don't allow any blank/empty tasks to be created
+    $('#addTodoButton').prop( 'disabled' , true );
+    $( '#taskIn' ).keyup( function() {
+        $('#addTodoButton').prop( 'disabled', this.value == "" ? true : false );     
+    })
 
     // and always get all items
     getTodos();
