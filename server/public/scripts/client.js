@@ -44,14 +44,14 @@ function displayTodos( response ) {
     for ( let row of response ) {
         tableBody.append( 
             `<tr>
-                <td>${ row.task }</td>
-                <td>
-                    <input class="completeTodoCheckbox" data-id="${ row.id }" id="${ row.id }" type="checkbox" />
-                </td>
                 <td>
                     <button class="deleteTodoButton" data-id=${ row.id }>x</button>
                 </td>
-                </tr>`
+                <td class="taskCell">${ row.task }</td>
+                <td>
+                    <input class="completeTodoCheckbox" data-id="${ row.id }" id="${ row.id }" type="checkbox" />
+                </td>
+            </tr>`
         )
 
         // check/uncheck the checkbox based on its 'completed' status
@@ -65,7 +65,7 @@ function displayTodos( response ) {
 
 
 function dimCompletedTodos( checkbox ) {
-    // scoot up to the parent row
+    // scoot up and grab the parent row
     let row = checkbox.closest( 'tr' );
 
     // let's help the user see what they've completed

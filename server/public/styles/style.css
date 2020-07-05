@@ -1,8 +1,27 @@
-.completeTodoCheckbox {  
-    height: 40px;
-    width: 40px;
+body {
+    font: 15px Avenir, Futura, sans-serif;
+    margin: 3em;
+    padding: 0;
 }
 
-/* .completeTodoCheckbox:checked {
-    color: pink;
-} */
+table {
+    border-collapse: collapse;
+    /* width: 50%; */
+}
+
+.taskCell {
+    min-width: 25em;
+}
+
+td, th {
+    padding: 8px;
+}
+
+tr {
+  border: 1px solid #ddd;
+}
+
+.completeTodoCheckbox {  
+    height: 1.5em;
+    width: 1.5em;
+}
