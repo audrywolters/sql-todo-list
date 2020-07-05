@@ -6,7 +6,9 @@ const pool = require( './pool' );
 // get the todos
 router.get( '/', ( req, res ) => {
 
-    const getQuery = `SELECT * FROM "todos" ORDER BY "id" ASC;`;
+    // if a task is compelted, move it to the bottom of list
+    // otherwise, order by the id/creation order
+    const getQuery = `SELECT * FROM "todos" ORDER BY "completed", "id" ASC;`;
     pool.query( getQuery ).then( ( result ) => {
         res.send( result.rows );
     }).catch( ( err ) => {
