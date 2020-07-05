@@ -1,15 +1,15 @@
 $( document ).ready( onReady );
 
 function onReady() {
-    // AUDRY do button events
-    // $( '#addBirdButton' ).on( 'click', addBird );
-    // $( '#birdsOut' ).on( 'click', '.deleteBirdButton', deleteBird );
+    // register clicks
+    $( '#addTodoButton' ).on( 'click', addTodo );
+    $( '#todosDisplay' ).on( 'click', '.deleteTodoButton', deleteTodo );
+
+    // and always get all items
     getTodos();
 }
 
-// let todos = [];
-
-// GET all
+// get everbody in the table
 function getTodos() {
     $.ajax({
         type: 'GET',
@@ -21,19 +21,18 @@ function getTodos() {
         // we're going to have to wipe everything out
         tableBody.empty();
 
-        // AUDRY - why did he do this?
-        // hold response in a global
-        //todos = response;
- 
-        // we're going to have to reprint everything each time
+        // and reprint each eachtime
         // AUDRY - how the f are we going to check a checkbox by bool value?
         // css pseudo - can i do that?
+        // we're going to have to hack it some how
         for ( let row of response ) {
             tableBody.append( 
                 `<tr>
                     <td>${ row.task }</td>
                     <td>${ row.completed }</td>
-                    <button>Delete</button>
+                    <td>
+                        <button class="deleteTodoButton">x</button>
+                    </td>
                  </tr>`
             )    
         }
@@ -42,8 +41,12 @@ function getTodos() {
     })
 }
 
-// CREATE
+// insert
+function addTodo() {
+    console.log( 'add todo!');
+}
 
-// UPDATE
-
-// DELTE
+// delete
+function deleteTodo() {
+    console.log( 'delete!' );
+}
