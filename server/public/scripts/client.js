@@ -4,14 +4,13 @@ function onReady() {
     // register clicks
     $( '#addTodoButton' ).on( 'click', addTodo );
     $( '#todosDisplay' ).on( 'click', '.deleteTodoButton', deleteTodo );
-
-    // need 'completed' event
+    $( '#todosDisplay' ).on( 'click', '.completeTodoCheckbox', completeTodo );
 
     // and always get all items
     getTodos();
 }
 
-// get everbody in the table
+// throw everybody into the table
 function getTodos() {
     $.ajax({
         type: 'GET',
@@ -25,13 +24,20 @@ function getTodos() {
 
         // and reprint each eachtime
         // AUDRY - how the f are we going to check a checkbox by bool value?
-        // css pseudo - can i do that?
-        // we're going to have to hack it some how
+
+        // $('#isAgeSelected').click(function() {
+        //     $("#txtAge").toggle(this.checked);
+        // });
+
+        // Dev has 'data-index' for update........
         for ( let row of response ) {
+
             tableBody.append( 
                 `<tr>
                     <td>${ row.task }</td>
-                    <td>${ row.completed }</td>
+                    <td>
+                        <input class="completeTodoCheckbox" data-id=${ row.id } type="checkbox" />
+                    </td>
                     <td>
                         <button class="deleteTodoButton" data-id=${ row.id }>x</button>
                     </td>
@@ -71,12 +77,36 @@ function addTodo() {
 function deleteTodo() {
 
     $.ajax({
-        type: "DELETE",
+        type: 'DELETE',
         url: '/todos/' + $( this ).data( 'id' )
     }).then( function( response ) {
         getTodos();
     }).catch( function( err ) {
         console.log( 'delete failure!!! '  + err );
+    })
+    
+}
+
+
+// complete/un
+function completeTodo() {
+    // prepare the input as an object DB will understand
+    const todoToSend = {
+        completed: $( '#')
+    }
+    // 
+    // $('#isAgeSelected').click(function() {
+    //     $("#txtAge").toggle(this.checked);
+    // });
+
+
+    $.ajax({
+        type: 'PUT',
+        url: '/todos/' + $( this ).data( 'id' )
+    }).then( function( response ) {
+        getTodos();
+    }).catch( function( err ) {
+        console.log( 'update failure!!! '  + err );
     })
     
 }

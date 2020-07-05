@@ -37,13 +37,26 @@ router.delete( '/:id', ( req, res ) => {
     let deleteQuery = `DELETE FROM "todos" WHERE "id"=${ req.params.id };`;
     pool.query( deleteQuery )
     .then( ( results ) => {
-        console.log( '>:| delete went bad: ' + err );
         res.send( 200 );
     }).catch( ( err ) => {
+        console.log( '>:| delete went bad: ' + err );
         res.send( 500 );
     })
 }) // DELETE end
 
+// complete/uncomplete the todo
+router.put( '/:id', ( req, res ) => {
+    console.log ('its update time');
+
+    const updateQuery = `UDPATE "todos" SET "completed"=${ req.body.completed } WHERE "id"=${ req.params.id };`;
+    pool.query( updateQuery )
+    .then( ( results ) => {
+        res.sendStatus( 200 );
+    }).catch( ( err ) => {
+        console.log( '>:| update no: ' + err );
+        res.sendStatus( 500 );
+    }) // UPDATE end
+})
 
 // send out our guy
 module.exports = router;
